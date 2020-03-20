@@ -377,6 +377,17 @@ class TensorFlow(product.Product):
                         os.path.join(self.install_toolchain_path(),
                                      'usr', 'lib', 'swift', 'tensorflow', name))
 
+        for name in (
+                'cdevice.h',
+                'tf_op_modes.h',
+                'xla_scalar_type.h',
+        ):
+            shutil.copy(os.path.join(self.source_dir, '..',
+                                     'tensorflow-swift-apis', 'Sources',
+                                     'x10', 'swift_bindings', name),
+                        os.path.join(self.install_toolchain_path(),
+                                     'usr', 'lib', 'swift', 'tensorflow', name))
+
         if self.args.enable_x10:
             self._collect_headers()
 
