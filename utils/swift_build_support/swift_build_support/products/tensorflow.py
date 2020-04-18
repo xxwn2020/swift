@@ -205,6 +205,10 @@ class TensorFlow(product.Product):
                                   'xla_client'),
                      os.path.join(self.source_dir, 'tensorflow', 'compiler',
                                   'xla', 'xla_client'))
+            _symlink(os.path.join(self.source_dir, '..',
+                                  'tensorflow-swift-apis', 'Sources', 'x10',
+                                  'swift_bindings'),
+                     os.path.join(self.source_dir, 'swift_bindings'))
         with shell.pushd(self.source_dir):
             # Run the TensorFlow configure script: `yes "" | ./configure`.
             # NOTE: consider rewriting `subprocess` API usages using `shell`
@@ -215,7 +219,7 @@ class TensorFlow(product.Product):
             yes_process.terminate()
 
             if self.args.enable_x10:
-                bazel_target = "//tensorflow/compiler/tf2xla/xla_tensor:libx10.so"
+                bazel_target = "//tensorflow/compiler/tf2xla/xla_tensor:x10"
             else:
                 bazel_target = "//tensorflow:tensorflow"
             # Build TensorFlow via bazel.
@@ -224,6 +228,7 @@ class TensorFlow(product.Product):
                 "build",
                 "-c", "opt",
                 "--define", "framework_shared_object=false",
+                "--nocheck_visibility",
                 bazel_target,
             ])
 
