@@ -109,28 +109,13 @@ final class VectorSpacesEqualSelf: Differentiable & DummyAdditiveArithmetic {
   var w: Float
   var b: Float
   typealias TangentVector = VectorSpacesEqualSelf
+  var zeroTangentVectorInitializer: () -> TangentVector { fatalError() }
 
   init(w: Float, b: Float) {
     self.w = w
     self.b = b
   }
 }
-/*
-extension VectorSpacesEqualSelf : Equatable, AdditiveArithmetic {
-  static func == (lhs: VectorSpacesEqualSelf, rhs: VectorSpacesEqualSelf) -> Bool {
-    fatalError()
-  }
-  static var zero: VectorSpacesEqualSelf {
-    fatalError()
-  }
-  static func + (lhs: VectorSpacesEqualSelf, rhs: VectorSpacesEqualSelf) -> VectorSpacesEqualSelf {
-    fatalError()
-  }
-  static func - (lhs: VectorSpacesEqualSelf, rhs: VectorSpacesEqualSelf) -> VectorSpacesEqualSelf {
-    fatalError()
-  }
-}
-*/
 
 // Test generic type with vector space types to `Self`.
 class GenericVectorSpacesEqualSelf<T>: Differentiable
